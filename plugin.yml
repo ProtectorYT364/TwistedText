@@ -12,9 +12,9 @@ commands:
   addfloatingtext:
     aliases: [addft]
     description: Add a new floating text at your location
-    permission: addfloatingtext.command
+    permission: twistedtext.command
     usage: /addfloatingtext <text>
 
 permissions:
-  addfloatingtext.command:
+  twistedtext.command:
     default: op

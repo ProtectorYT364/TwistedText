@@ -43,7 +43,7 @@ class TwistedText extends PluginBase{
 
             return false;
         }
-        if(!$sender->hasPermission("addfloatingtext.command")){
+        if(!$sender->hasPermission("twistedtext.command")){
             return false;
         }
         if(empty($args)){
