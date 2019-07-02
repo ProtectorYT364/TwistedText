@@ -1,0 +1,15 @@
+name: TwistedText
+description: A better way to have FloatingText in PocketMine-MP!
+
+main: twisted\twistedtext\TwistedText
+version: 1.0.0
+api: 3.0.0
+load: POSTWORLD
+
+author: Twisted
+
+commands:
+  addfloatingtext:
+    aliases: [addft]
+    description: Add a new floating text at your location
+    usage: /addfloatingtext <text>
