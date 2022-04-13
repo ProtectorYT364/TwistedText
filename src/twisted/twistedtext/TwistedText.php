@@ -6,9 +6,9 @@ namespace twisted\twistedtext;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\entity\Entity;
-use pocketmine\level\Position;
+use pocketmine\world\Position;
 use pocketmine\math\Vector3;
-use pocketmine\Player;
+use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat;
 use function implode;
@@ -21,17 +21,17 @@ class TwistedText extends PluginBase{
     /** @var FloatingText[] */
     private $floatingTexts = [];
 
-    public function onLoad() : void{
+    public function onLoad(): void {
         self::$instance = $this;
     }
 
-    public function onEnable() : void{
+    public function onEnable(): void {
         $this->saveDefaultConfig();
         Entity::registerEntity(FloatingText::class, true);
         $this->loadFloatingTexts();
     }
 
-    public function onDisable() : void{
+    public function onDisable(): void {
         foreach($this->floatingTexts as $floatingText){
             $floatingText->close(); // Using flagForDespawn() will not work here
         }
@@ -68,19 +68,19 @@ class TwistedText extends PluginBase{
                 "x" => $floatingText->getX(),
                 "y" => $floatingText->getY(),
                 "z" => $floatingText->getZ(),
-                "world" => $floatingText->getLevel()->getName()
+                "world" => $floatingText->getWorld()->getName()
             ]
         ];
         $config->set("floating-texts", $floatingTexts);
         $config->save();
     }
 
-    public function loadFloatingTexts() : void{
+    public function loadFloatingTexts(): void {
         foreach($this->getConfig()->get("floating-texts", []) as $data){
-            $level = $this->getServer()->getLevelByName($data["position"]["world"] ?? "");
-            $this->getServer()->loadLevel($data["position"]["world"]);
+            $world = $this->getServer()->getWorldByName($data["position"]["world"] ?? "");
+            $this->getServer()->loadWorld($data["position"]["world"]);
             $position = new Vector3($data["position"]["x"] ?? 0, $data["position"]["y"] ?? 0, $data["position"]["z"] ?? 0);
-            $floatingText = Entity::createEntity("FloatingText", $level ?? $this->getServer()->getDefaultLevel(), Entity::createBaseNBT($position));
+            $floatingText = Entity::createEntity("FloatingText", $world ?? $this->getServer()->getDefaultWorld(), Entity::createBaseNBT($position));
             if($floatingText instanceof FloatingText){
                 $floatingText->setNameTag($data["text"] ?? "");
                 $floatingText->spawnToAll();
@@ -90,7 +90,7 @@ class TwistedText extends PluginBase{
     }
 
     public function addFloatingText(string $text, Position $position) : ?FloatingText{
-        $floatingText = Entity::createEntity("FloatingText", $position->getLevel(), Entity::createBaseNBT($position));
+        $floatingText = Entity::createEntity("FloatingText", $position->getWorld(), Entity::createBaseNBT($position));
         if($floatingText instanceof FloatingText){
             $floatingText->setNameTag($text);
             $floatingText->spawnToAll();

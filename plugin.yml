@@ -3,7 +3,7 @@ description: A better way to have FloatingText in PocketMine-MP!
 
 main: twisted\twistedtext\TwistedText
 version: 1.0.0
-api: 3.0.0
+api: 4.0.0
 load: POSTWORLD
 
 author: Twisted

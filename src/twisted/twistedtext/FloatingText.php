@@ -18,7 +18,7 @@ class FloatingText extends Entity{
     public $width = 0;
     public $height = 0;
 
-    public const NETWORK_ID = self::CHICKEN;
+    public const NETWORK_ID = self::ENDERMITES;
 
     protected function initEntity() : void{
         $this->setScale(0.0001); // Hacky method to make it not visible
@@ -28,11 +28,11 @@ class FloatingText extends Entity{
         $this->propertyManager->setFloat(self::DATA_BOUNDING_BOX_HEIGHT, 0); // Hack to remove shadow
     }
 
-    public function updateText(string $newText) : void{
+    public function updateText(string $newText): void {
         $this->setNameTag($newText);
     }
 
-    public function move(float $dx, float $dy, float $dz) : void{
+    public function move(float $dx, float $dy, float $dz): void {
     }
 
     public function isImmobile() : bool{
